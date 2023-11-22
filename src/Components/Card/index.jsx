@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import { Context } from "../../Context"
+import { PlusCircleIcon } from "@heroicons/react/24/outline"
 
 const Card = (props) => {
   const {product} = props
@@ -14,7 +15,7 @@ const Card = (props) => {
             className='absolute top-0 right-0 flex justify-center items-center bg-white/60 w-6 h-6 rounded-full text-md m-2'
             onClick={()=> context.setCount(context.count + 1)}
           >
-            +
+            <PlusCircleIcon className="w-6"/>
           </div>
         </figure>
         <p className="flex justify-between items-center">

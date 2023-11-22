@@ -3,6 +3,7 @@ import { Card } from '../../Components/Card'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
+import { ProductDetail } from '../../Components/ProductDetails'
 
 function Home() {
   const [products, setProducts] = useState([])
@@ -29,6 +30,7 @@ function Home() {
   return (
     <Layout>
       Home
+      <ProductDetail />
       <div className='grid gap-5 grid-cols-4 w-full max-w-screen-lg'>
       {
         products?.map((product)=> (
