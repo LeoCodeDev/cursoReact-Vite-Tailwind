@@ -1,13 +1,20 @@
-import { createContext } from 'react'
+import { createContext, useState } from 'react'
 
 const Context = createContext()
 
 const ContextProvider = ({ children }) => {
+  const [count, setCount] = useState(0)
+
   return (
-    <Context.Provider>
-        {children}
+    <Context.Provider
+      value={{
+        count,
+        setCount,
+      }}
+    >
+      {children}
     </Context.Provider>
   )
 }
 
-export { ContextProvider }
+export { Context, ContextProvider }

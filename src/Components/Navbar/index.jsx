@@ -1,7 +1,10 @@
+import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
+import { Context } from '../../Context'
 
 const Navbar = () => {
   const activeStyle = 'underline underline-offset-2'
+  const context = useContext(Context)
 
   const menuLeft = [
     {
@@ -64,7 +67,7 @@ const Navbar = () => {
     },
     {
       to: '',
-      text: `🛒 ${0}`,
+      text: `🛒 ${context.count}`,
       className: '',
     },
   ]
