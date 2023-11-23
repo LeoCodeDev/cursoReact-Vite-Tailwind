@@ -1,11 +1,13 @@
-import { Layout } from '../../Components/Layout'
-import { Card } from '../../Components/Card'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
+import { Context } from '../../Context'
 import { ProductDetail } from '../../Components/ProductDetails'
+import { Layout } from '../../Components/Layout'
+import { Card } from '../../Components/Card'
 
 function Home() {
+  const context = useContext(Context)
   const [products, setProducts] = useState([])
 
   const fetchData = async () => {
@@ -19,7 +21,7 @@ function Home() {
     try {
       fetchData()
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
 
     // fetch('https://fakestoreapi.com/products')
@@ -30,13 +32,11 @@ function Home() {
   return (
     <Layout>
       Home
-      <ProductDetail />
-      <div className='grid gap-5 grid-cols-4 w-full max-w-screen-lg'>
-      {
-        products?.map((product)=> (
-          <Card key={product.id} product={product}/>
-        ))
-      }
+      {context.isDetailOpen && <ProductDetail />}
+      <div className="grid gap-5 grid-cols-4 w-full max-w-screen-lg">
+        {products?.map((product) => (
+          <Card key={product.id} product={product} />
+        ))}
       </div>
     </Layout>
   )

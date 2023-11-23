@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Context } from '../../Context'
-// import { ShoppingCartIcon } from '@heroicons/react/24/outline'
+import { ShoppingCartIcon } from '@heroicons/react/24/outline'
 
 const Navbar = () => {
   const activeStyle = 'underline underline-offset-2'
@@ -68,8 +68,13 @@ const Navbar = () => {
     },
     {
       to: '',
-      text: `🛒 ${context.count}`,
-      className: '',
+      text: (
+        <>
+        <ShoppingCartIcon className='w-4'/>
+        {context.count}
+        </>
+      ),
+      className: 'flex gap-1',
     },
   ]
 
@@ -98,7 +103,7 @@ const Navbar = () => {
               {link.text}
             </NavLink>
             ) : (
-              <span>{link.text}</span>
+              <span className={link.className}>{link.text}</span>
             )}
           </li>
         ))}
