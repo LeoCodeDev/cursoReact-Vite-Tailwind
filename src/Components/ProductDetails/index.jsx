@@ -5,7 +5,7 @@ import { useContext } from 'react'
 const ProductDetail = () => {
   const context = useContext(Context)
   const handleCloseMenu = () => {
-    context.closeDetailMenu()
+    context.closeMenu()
     context.setProductToShow({})
   }
   return (

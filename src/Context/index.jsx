@@ -11,32 +11,47 @@ const ContextProvider = ({ children }) => {
   const [cartProducts, setCartProducts] = useState([])
 
   // * Product Details
-  // ~ Open/Close
-  const [isDetailOpen, setIsDetailOpen] = useState(false)
-
-  const openDetailMenu = () => {
-    setIsDetailOpen(true)
-  }
-
-  const closeDetailMenu = () => {
-    setIsDetailOpen(false)
-  }
-
   // ~ Show Product
   const [productToShow, setProductToShow] = useState({})
+
+  // * Open/Close Menus
+
+  const [isOpen, setIsOpen] = useState({
+    details: false,
+    checkout: false,
+  })
+
+  const openMenu = (menu) => {
+    const updateState = {}
+
+    for (const key in isOpen) {
+      updateState[key] = false
+    }
+
+    updateState[menu] = true
+    setIsOpen(updateState)
+  }
+
+  const closeMenu = () => {
+    const updateState = {}
+    for (const key in isOpen) {
+      updateState[key] = false
+    }
+    setIsOpen(updateState)
+  }
 
   return (
     <Context.Provider
       value={{
         count,
         setCount,
-        isDetailOpen,
-        openDetailMenu,
-        closeDetailMenu,
         productToShow,
         setProductToShow,
         cartProducts,
         setCartProducts,
+        isOpen,
+        openMenu,
+        closeMenu
       }}
     >
       {children}

@@ -5,6 +5,7 @@ import { Context } from '../../Context'
 import { ProductDetail } from '../../Components/ProductDetails'
 import { Layout } from '../../Components/Layout'
 import { Card } from '../../Components/Card'
+import { CheckoutSideMenu } from '../../Components/CheckoutSideMenu'
 
 function Home() {
   const context = useContext(Context)
@@ -32,7 +33,8 @@ function Home() {
   return (
     <Layout>
       Home
-      {context.isDetailOpen && <ProductDetail />}
+      {context.isOpen.details && <ProductDetail />}
+      {context.isOpen.checkout && <CheckoutSideMenu />}
       <div className="grid gap-5 grid-cols-4 w-full max-w-screen-lg">
         {products?.map((product) => (
           <Card key={product.id} product={product} />

@@ -8,12 +8,14 @@ const Card = (props) => {
 
   const handleClickOnCard = (product) => {
     context.setProductToShow(product)
-    context.openDetailMenu()
+    context.openMenu('details')
   }
 
-  const addProductsToCart = (product) => {
+  const addProductsToCart = (e,product) => {
+    e.stopPropagation()
     context.setCount(context.count + 1)
     context.setCartProducts([...context.cartProducts, product])
+    context.openMenu('checkout')
   }
 
   return (
@@ -32,7 +34,7 @@ const Card = (props) => {
         />
         <div
           className="absolute top-0 right-0 flex justify-center items-center bg-white/60 w-6 h-6 rounded-full text-md m-2"
-          onClick={() => addProductsToCart(product)}
+          onClick={(e) => addProductsToCart(e,product)}
         >
           <PlusCircleIcon className="w-6" />
         </div>
