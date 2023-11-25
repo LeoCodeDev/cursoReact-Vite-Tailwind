@@ -10,6 +10,9 @@ const ContextProvider = ({ children }) => {
   // ~ Products to Cart
   const [cartProducts, setCartProducts] = useState([])
 
+  // ~ Order
+  const [order, setOrder] = useState([])
+
   // * Product Details
   // ~ Show Product
   const [productToShow, setProductToShow] = useState({})
@@ -51,7 +54,9 @@ const ContextProvider = ({ children }) => {
         setCartProducts,
         isOpen,
         openMenu,
-        closeMenu
+        closeMenu,
+        order,
+        setOrder,
       }}
     >
       {children}

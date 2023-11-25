@@ -11,17 +11,17 @@ const OrderCard = (props) => {
           <img
             src={img}
             alt={title}
-            className="w-full h-full rounded-lg object-cover"
+            className="w-full h-full rounded-lg object-contain"
           />
         </figure>
       </div>
         <p className="w-full self-center text-ellipsis text-sm font-light">{title}</p>
       <div className="flex items-center gap-2 relative">
         <p className="w-full text-center text-lg font-medium">${price}</p>
-        <MinusCircleIcon 
+        {handleDelete && <MinusCircleIcon 
           className="h-6 w-6 cursor-pointer absolute top-0 right-0 text-red-600" 
           onClick={() => handleDelete(id)}
-        />
+        />}
       </div>
     </div>
   )
