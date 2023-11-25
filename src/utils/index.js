@@ -7,7 +7,7 @@
 const totalPrice = (products) => {
   const total = products.reduce((acc, item) => {
     return acc + item.price
-  })
+  },0)
 
   return total
 }
