@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { Context } from '../../Context'
-import { PlusCircleIcon } from '@heroicons/react/24/outline'
+import { CheckCircleIcon, PlusCircleIcon } from '@heroicons/react/24/outline'
 
 const Card = (props) => {
   const { product } = props
@@ -11,11 +11,32 @@ const Card = (props) => {
     context.openMenu('details')
   }
 
-  const addProductsToCart = (e,product) => {
+  const addProductsToCart = (e, product) => {
     e.stopPropagation()
     context.setCount(context.count + 1)
     context.setCartProducts([...context.cartProducts, product])
     context.openMenu('checkout')
+  }
+
+  const renderIcon = (id) => {
+    const isInCart = context.cartProducts.find((product) => product.id === id)
+
+    if (!isInCart) {
+      return (
+        <div
+          className="absolute top-0 right-0 flex justify-center items-center bg-white/60 w-6 h-6 rounded-full text-md m-2"
+          onClick={(e) => addProductsToCart(e, product)}
+        >
+          <PlusCircleIcon className="w-6" />
+        </div>
+      )
+    } else {
+      return (
+        <div className="absolute top-0 right-0 flex justify-center items-center bg-white/60 w-6 h-6 rounded-full text-md m-2">
+          <CheckCircleIcon className="w-6 text-green-500" />
+        </div>
+      )
+    }
   }
 
   return (
@@ -32,12 +53,7 @@ const Card = (props) => {
           src={product.image}
           alt={product.title}
         />
-        <div
-          className="absolute top-0 right-0 flex justify-center items-center bg-white/60 w-6 h-6 rounded-full text-md m-2"
-          onClick={(e) => addProductsToCart(e,product)}
-        >
-          <PlusCircleIcon className="w-6" />
-        </div>
+        {renderIcon(product.id)}
       </figure>
       <p className="flex justify-between items-center">
         <span className="text-sm font-light">{product.title}</span>

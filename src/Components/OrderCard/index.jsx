@@ -1,7 +1,7 @@
 import { MinusCircleIcon } from '@heroicons/react/24/solid'
 
 const OrderCard = (props) => {
-  const { title, price, img } = props
+  const {id, title, price, img, handleDelete} = props
 
   return (
     // <div className="flex justify-between items-center px-6 mb-4">
@@ -18,7 +18,10 @@ const OrderCard = (props) => {
         <p className="w-full self-center text-ellipsis text-sm font-light">{title}</p>
       <div className="flex items-center gap-2 relative">
         <p className="w-full text-center text-lg font-medium">${price}</p>
-        <MinusCircleIcon className="h-6 w-6 cursor-pointer absolute top-0 right-0 text-red-600" />
+        <MinusCircleIcon 
+          className="h-6 w-6 cursor-pointer absolute top-0 right-0 text-red-600" 
+          onClick={() => handleDelete(id)}
+        />
       </div>
     </div>
   )
