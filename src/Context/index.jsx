@@ -1,4 +1,5 @@
-import { createContext, useState } from 'react'
+import axios from 'axios'
+import { createContext, useEffect, useState } from 'react'
 
 const Context = createContext()
 
@@ -43,6 +44,66 @@ const ContextProvider = ({ children }) => {
     setIsOpen(updateState)
   }
 
+  // * Get Products
+
+  const [products, setProducts] = useState([])
+
+  const fetchData = async () => {
+    const { data } = await axios('/products')
+
+    if (!data) return 'No products founds'
+    if (data) setProducts(data)
+  }
+
+  useEffect(() => {
+    try {
+      fetchData()
+    } catch (error) {
+      console.log(error)
+    }
+
+    // fetch('https://fakestoreapi.com/products')
+    // .then(response => response.json())
+    // .then(data => setProducts(data))
+  }, [])
+
+  // ~ By title
+
+  const [searchByTitle, setSearchByTitle] = useState('')
+
+  // ~ By Category
+
+  const [searchByCategory, setSearchByCategory] = useState('')
+
+  // * Filter Products
+  // ~ By Title
+
+  const filterProductsByTitle = (products, searchByTitle) => {
+    return products.filter((product) =>
+      product.title.toLowerCase().includes(searchByTitle.toLowerCase())
+    )
+  }
+
+  useEffect(() => {
+    setFilteredProducts(filterProductsByTitle(products, searchByTitle))
+  }, [products, searchByTitle])
+
+  // ~ By Category
+
+  const filterProductsByCategory = (products, searchByCategory) => {
+    return products.filter((product) =>
+      product.category.toLowerCase().includes(searchByCategory.toLowerCase())
+    )
+  }
+
+  useEffect(() => {
+    setFilteredProducts(filterProductsByCategory(products, searchByCategory))
+  }, [products, searchByCategory])
+
+  // ~ Filtered Products
+
+  const [filteredProducts, setFilteredProducts] = useState([])
+
   return (
     <Context.Provider
       value={{
@@ -57,6 +118,12 @@ const ContextProvider = ({ children }) => {
         closeMenu,
         order,
         setOrder,
+        products,
+        setProducts,
+        searchByTitle,
+        setSearchByTitle,
+        setSearchByCategory,
+        filteredProducts,
       }}
     >
       {children}
