@@ -71,7 +71,7 @@ const Navbar = () => {
       text: (
         <>
         <ShoppingCartIcon className='w-4'/>
-        {context.count}
+        {context.cartProducts.length}
         </>
       ),
       className: 'flex gap-1',
