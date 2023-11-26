@@ -3,7 +3,34 @@ import { createContext, useEffect, useState } from 'react'
 
 const Context = createContext()
 
+const initializeLocalStorage = () => {
+  const accountInLocalStorage = localStorage.getItem('account')
+  const signOutInLocalStorage = localStorage.getItem('signOut')
+  let parsedAccount
+  let parsedSignOut
+
+  if (!accountInLocalStorage) {
+    localStorage.setItem('account', JSON.stringify({}))
+    parsedAccount = {}
+  } else {
+    parsedAccount = JSON.parse(accountInLocalStorage)
+  }
+
+  if (!signOutInLocalStorage) {
+    localStorage.setItem('signOut', JSON.stringify(false))
+    parsedSignOut = false
+  } else {
+    parsedSignOut = JSON.parse(signOutInLocalStorage)
+  }
+}
+
 const ContextProvider = ({ children }) => {
+  // * My Account
+  const [account, setAccount] = useState({})
+
+  //* Sign Out
+  const [signOut, setSignOut] = useState(false)
+
   //* Shopping Cart
   // ~ Product Quantity
   const [count, setCount] = useState(0)
@@ -124,6 +151,10 @@ const ContextProvider = ({ children }) => {
         setSearchByTitle,
         setSearchByCategory,
         filteredProducts,
+        account,
+        setAccount,
+        signOut,
+        setSignOut,
       }}
     >
       {children}

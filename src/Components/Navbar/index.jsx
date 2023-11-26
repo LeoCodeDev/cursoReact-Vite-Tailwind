@@ -4,8 +4,15 @@ import { Context } from '../../Context'
 import { ShoppingCartIcon } from '@heroicons/react/24/outline'
 
 const Navbar = () => {
-  const activeStyle = 'underline underline-offset-2'
   const context = useContext(Context)
+  const activeStyle = 'underline underline-offset-2'
+
+  const handleSignOut = () => {
+    console.log('aqui');
+    const stringifiedSignOut = JSON.stringify(true)
+    localStorage.setItem('signOut', stringifiedSignOut)
+    context.setSignOut(true)
+  }
 
   const menuLeft = [
     {
@@ -99,6 +106,7 @@ const Navbar = () => {
               ? (<NavLink
               to={link.to}
               className={({ isActive }) => (isActive && i !== 0 ? activeStyle : undefined)}
+              onClick={link.to === '/sign-in' ? handleSignOut : undefined}
             >
               {link.text}
             </NavLink>
