@@ -31,6 +31,16 @@ const ContextProvider = ({ children }) => {
   //* Sign Out
   const [signOut, setSignOut] = useState(false)
 
+  // const signOut = localStorage.getItem('signOut')
+
+  const handleSignOut = (e) => {
+    e.preventDefault()
+    const stringifiedSignOut = JSON.stringify(true)
+    localStorage.setItem('signOut', stringifiedSignOut)
+    setSignOut(true)
+  }
+
+
   //* Shopping Cart
   // ~ Product Quantity
   const [count, setCount] = useState(0)
@@ -155,6 +165,7 @@ const ContextProvider = ({ children }) => {
         setAccount,
         signOut,
         setSignOut,
+        handleSignOut
       }}
     >
       {children}

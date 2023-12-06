@@ -13,7 +13,6 @@ const Navbar = () => {
   const isUserSignedOut = context.signOut || parsedSignOut
 
   const handleSignOut = () => {
-    console.log('aqui')
     const stringifiedSignOut = JSON.stringify(true)
     localStorage.setItem('signOut', stringifiedSignOut)
     context.setSignOut(true)
