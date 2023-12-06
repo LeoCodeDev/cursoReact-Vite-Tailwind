@@ -5,6 +5,7 @@ import './index.css'
 import axios from 'axios'
 
 axios.defaults.baseURL = 'https://fakestoreapi.com/'
+// axios.defaults.baseURL = 'https://api.escuelajs.co/api/v1'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

@@ -7,8 +7,13 @@ const Navbar = () => {
   const context = useContext(Context)
   const activeStyle = 'underline underline-offset-2'
 
+  // * Sign-Out
+  const signOut = localStorage.getItem('signOut')
+  const parsedSignOut = JSON.parse(signOut)
+  const isUserSignedOut = context.signOut || parsedSignOut
+
   const handleSignOut = () => {
-    console.log('aqui');
+    console.log('aqui')
     const stringifiedSignOut = JSON.stringify(true)
     localStorage.setItem('signOut', stringifiedSignOut)
     context.setSignOut(true)
@@ -52,7 +57,7 @@ const Navbar = () => {
     },
   ]
 
-  const menuRight = [
+  const menuRightAuthenticated = [
     {
       to: '',
       text: 'leoCodeDev@gmail.com',
@@ -70,20 +75,32 @@ const Navbar = () => {
     },
     {
       to: '/sign-in',
-      text: 'Sign in',
+      text: 'Sign Out',
       className: '',
     },
     {
       to: '',
       text: (
         <>
-        <ShoppingCartIcon className='w-4'/>
-        {context.cartProducts.length}
+          <ShoppingCartIcon className="w-4" />
+          {context.cartProducts.length}
         </>
       ),
       className: 'flex gap-1',
     },
   ]
+
+  const menuRightUnauthenticated = [
+    {
+      to: '/sign-in',
+      text: 'Sign In',
+      className: '',
+    },
+  ]
+
+  const menuRight = isUserSignedOut
+    ? menuRightUnauthenticated
+    : menuRightAuthenticated
 
   return (
     <nav className="flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 text-sm font-light">
@@ -92,7 +109,9 @@ const Navbar = () => {
           <li key={link.text} className={link.className}>
             <NavLink
               to={link.to}
-              className={({ isActive }) => (isActive && i !== 0 ? activeStyle : undefined)}
+              className={({ isActive }) =>
+                isActive && i !== 0 ? activeStyle : undefined
+              }
             >
               {link.text}
             </NavLink>
@@ -102,14 +121,16 @@ const Navbar = () => {
       <ul className="flex items-center gap-3">
         {menuRight.map((link, i) => (
           <li key={link.text} className={link.className}>
-            {link.to !== '' 
-              ? (<NavLink
-              to={link.to}
-              className={({ isActive }) => (isActive && i !== 0 ? activeStyle : undefined)}
-              onClick={link.to === '/sign-in' ? handleSignOut : undefined}
-            >
-              {link.text}
-            </NavLink>
+            {link.to !== '' ? (
+              <NavLink
+                to={link.to}
+                className={({ isActive }) =>
+                  isActive && i !== 0 ? activeStyle : undefined
+                }
+                onClick={link.to === '/sign-in' ? handleSignOut : undefined}
+              >
+                {link.text}
+              </NavLink>
             ) : (
               <span className={link.className}>{link.text}</span>
             )}
